@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css?family=Pontano+Sans');
+@import url('https://fonts.googleapis.com/css?family=Lobster+Two:700');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+* {
+   margin: 0;
+   padding: 0;
+}
+
+body {
+	font-family: 'Pontano Sans', sans-serif;
+	background-color: #FFDC52;
+}
+
+h1 {
+    font-size: 4em;
+    margin: 0 auto;
+	padding: 1%;
+    color: #eb1f48;
+    font-weight:700;
+    text-align: center;
+    font-family: 'Lobster Two', cursive;
+}
+#main {
+    width: 90%;
+    padding: 2%;
+    margin: 0 auto;
+	margin-top: 1%;
+    background-color:#eb1f48;
+    position: relative;
+}
+
+#Info {
+    color: #FFF;
+}
+#botonIniciar, #botonReset, #botonTirar{
+	background-color: #FFDC52;
+	color:  darkslategrey;
+	padding: 1%;
+	margin: 1.5%;
+	border: none;
+    font-size: 1.5em;
+    font-family: 'Oswald', sans-serif;
+}
+
+#puntajes {
+  	background-color: #FFDC52;
+	color:  darkslategrey;
+	padding: 1.2%;
+	margin:0.2%;
+	border: none;
+    font-size: 1.5em;
+    font-family: 'Oswald', sans-serif;  
+}
+/* -----------------   TABLA    --------------------- */
+table {
+    margin: 0 auto;
+    width: 95%;
+    padding: 0.5%;
+    color: #000;
+    border-collapse: collapse;
+    z-index: 5;
+    position: absolute;
+    background-color: #ffdb99;
+}
+
+th,td{
+    border: 1.2px solid #000;  
+    padding: 0.5%;
+}
+
+table thead tr th , th:last-of-type {
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+
+table tbody tr:last-of-type td {
+    text-align: center;
+}
+
+td{
+    padding-left: 3%;
+}
+.noDisp{
+    display: none;
+}
+
+/* ---------------      CAMBIOS ESTANDO EN JUEGO      -------------------- */
+#player1, #player2{
+    color: #FFF;
+}
+
+#player1.enJuego , #player2.enJuego {
+    font-weight: bolder;
+}
+
+#player1.enJuego{
+	background-color: #e27065;
+	border: none;
+	color: #FFF;
+	font-weight: 400;
+}
+
+#player2.enJuego{ 
+	background-color: #e2e165; 
+	border: none;
+	color: #FFF;
+	font-weight: 400;
+}
+
+/* ---------------      MARCADOR     -------------------- */
+
+#marcador {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#botonTirar {
+    width: 100%;
+}
+
+#player1 , #player2{
+    text-transform:uppercase;
+    text-align: center;
+    display: block;
+    float: left;
+    border: 1px solid;
+    width: 49.5%;
+    padding: 1% 0;
+}
+
+/* ---------------      DADOS     -------------------- */
+
+#contenedor {
+    background-color: #ffdb99;
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 1%;
+}
+
+#dado1 , #dado2 , #dado3 {
+    float: left;
+    width: 15%;
+    margin-left: 10%;
+    padding: 2%;
+}
+
+#dado4{
+    width: 15%;
+    margin: 0;
+    padding: 2%;
+    margin-left: 25%;
+}
+
+#dado5{
+   float: left;
+   width: 15%;  
+   margin-left: 55%;
+   margin-top: -20%;
+   padding: 2%; 
+}
+
+img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.seleccionado {
+    opacity: 0.5;
+}
