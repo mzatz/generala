@@ -67,7 +67,7 @@ function numb(a){
 		}
 	}
     console.log(a*cantidad);
-	$("#puntaje tbody tr:nth-of-type("+a+") td:nth-of-type("+(jugador+1)+")").html(a*cantidad);
+	$("table tbody tr:nth-of-type("+a+") td:nth-of-type("+(jugador+1)+")").html(a*cantidad);
 	cambiarTurno();
 }
 
