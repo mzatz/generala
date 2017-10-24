@@ -66,8 +66,9 @@ function numb(a){
 			cantidad++;
 		}
 	}
+    console.log(a*cantidad);
 	$("#puntaje tbody tr:nth-of-type("+a+") td:nth-of-type("+(jugador+2)+")").html(a*cantidad);
-	cambiarJugador();
+	cambiarTurno();
 }
 
 //  SELECCION DE LOS DADOS
