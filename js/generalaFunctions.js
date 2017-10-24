@@ -156,6 +156,14 @@ function resetGame(){
     }
 };
 
+// Puntajes desplegable 
+$(document).ready(function() {
+    $("#tablaPuntajes").addClass("noDisp");
+    $("#puntajes").click(function () {
+    $("#tablaPuntajes").toggle();
+  });
+  });
+
 //  PRIMER METODO
 /*
 function checkJugada()
