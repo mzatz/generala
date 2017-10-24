@@ -1,55 +1,58 @@
 var cantDados = 5;
-var jugador = 1;    //  N° del jugador
-var tirada = [];    // Array donde se guardan los valores de los dados que van saliendo.
+var jugador = 1; //  N° del jugador
+var tirada = []; // Array donde se guardan los valores de los dados que van saliendo.
 var puntajeP1 = 0;
-var puntajeP2  = 0;
-var cantTiros = 0;  //  Cantidad de veces que puede arrojar los dados
+var puntajeP2 = 0;
+var cantTiros = 0; //  Cantidad de veces que puede arrojar los dados
 
 //  VISUALIZACIÓN DE LOS PUNTAJES
 $("table tbody tr:last-of-type td:nth-of-type(1)").html(puntajeP1);
 $("table tbody tr:last-of-type td:nth-of-type(2)").html(puntajeP2);
 
 //  HABILITAR BOTONES
-function comenzar(){
-    $("#botonTirar").attr("disabled",false);
-    $("#botonReset").attr("disabled",false);
+function comenzar() {
+    $("#botonTirar").attr("disabled", false);
+    $("#botonReset").attr("disabled", false);
     $("#player1").addClass("enJuego");
     $("#Info").html("Comienza tirando el jugador " + jugador);
 }
 
 //  CAMBIOS DE TURNO ENTE JUGADORES
-    function cambiarTurno() {
-        if(jugador === 1) {
+function cambiarTurno() {
+    if (jugador === 1) {
         $("#player1").removeClass("enJuego");
-		$("#player2").addClass("enJuego");
+        $("#player2").addClass("enJuego");
         jugador = 2;
-        $("#Info").html("Turno jugador: " + jugador);  
-    }else{
+        $("#Info").html("Turno jugador: " + jugador);
+    } else {
         $("#player2").removeClass("enJuego");
         $("#player1").addClass("enJuego");
         jugador = 1;
         $("#Info").html("Turno jugador: " + jugador);
     }
-        //Vaciar los dados
-        for( var i=0 ; i<cantDados ; i++ ){
-        $("#dado" + (i+1) + " img").attr("src","img/0.jpg");
+    //Vaciar los dados
+    for (var i = 0; i < cantDados; i++) {
+        $("#dado" + (i + 1) + " img").attr("src", "img/0.jpg");
     }
 }
 
 //  TIRAR DADOS Y ASIGNAR LAS IMAGENES
-    function tirarDados() {
-        for( var i=0 ; i<cantDados ; i++ ){
-            var numero = (Math.floor(Math.random()*6)+1);
+function tirarDados() {
+    for (var i = 0; i < cantDados; i++) {
+        if (!$("#dado" + (i + 1)).hasClass("seleccionado")) {
+            var numero = (Math.floor(Math.random() * 6) + 1);
             tirada[i] = numero;
-            $("#dado"+ (i+1) +" img").attr("src","img/"+numero+".jpg");
-        }cantTiros++;
-        //checkJugada();
-        // Sumar los cantTiros
-        console.log("Cantidad de tiros: " + cantTiros);
-        if(cantTiros>=3){
-             $("#botonTirar").attr("disabled",true);
+            $("#dado" + (i + 1) + " img").attr("src", "img/" + numero + ".jpg");
         }
-    };
+    }
+    cantTiros++;
+    //checkJugada();
+    // Sumar los cantTiros
+    console.log("Cantidad de tiros: " + cantTiros);
+    if (cantTiros >= 3) {
+        $("#botonTirar").attr("disabled", true);
+    }
+};
 
 //  SELECCION DE LOS DADOS
 /*function dados(a){
@@ -64,16 +67,16 @@ function comenzar(){
 	}
 };*/
 
-function dados(a){
-	if($("contenedor dados img:nth-of-type("+a+")").attr("src")!="img/0.jpg"){ console.log("El dado no es 0")
-		if($("img:nth-of-type("+a+")").hasClass("seleccionado")){console.log("Si esta seleccionado")
-			$("img:nth-of-type("+a+")").css("backgroundcolor","red");
-			$("img:nth-of-type("+a+")").removeClass("seleccionado");
-		} else { console.log("No esta seleccionado")
-			$("img:nth-of-type("+a+")").css("backgroundcolor","pink");
-			$("img:nth-of-type("+a+")").addClass("seleccionado");
-		}
-	}
+function dados(a) {
+    if ($("#dado" + a).attr("src") != "img/0.jpg") {
+        if ($("#dado" + a).hasClass("seleccionado")) {
+            $("#dado" + a).css("backgroundcolor", "red");
+            $("#dado" + a).removeClass("seleccionado");
+        } else {
+            $("#dado" + a).css("backgroundcolor", "pink");
+            $("#dado" + a).addClass("seleccionado");
+        }
+    }
 };
 
 /*
@@ -96,16 +99,16 @@ function escalera() {
     var juegoEscalera = "(1|2|3|4|5) | (2|3|4|5|6) | (1|3|4|5|6)";
     // segun fabian = /12345|23456|34561/g;
     //La g (global) es para que siga preguntando
-    var puntoEscalera = "table tbody tr:nth-of-type(8) td:nth-of-type('+jugador+')";
-    
-    if(cantTiros==1){
-			puntoEscalera.html(25);
-		} else if(cantTiros>1 && cantTiros<=3){
-            puntoEscalera.html(20);
-        } else {
-            puntoEscalera.html(0);
-        }
-    };
+    var puntoEscalera = "table tbody tr:nth-of-type(8) td:nth-of-type("+jugador+")";
+
+    if (cantTiros == 1) {
+        puntoEscalera.html(25);
+    } else if (cantTiros > 1 && cantTiros <= 3) {
+        puntoEscalera.html(20);
+    } else {
+        puntoEscalera.html(0);
+    }
+};
 
 
 //  FULL
@@ -122,47 +125,47 @@ var juegoGenerala = /1{5} | 2{5} | 3{5} | 4{5} | 5{5} | 6{5}/g;
 //var juegoGenerala = "1{5} | 2{5} | 3{5} | 4{5} | 5{5} | 6{5}";
 
 //  ANUNCIAR EL GANADOR
-    function ganador() {
-        if(puntajeP1>puntajeP2){
-            $("h1").html("El ganador es el jugador 1");
-            $("#botonTirar").attr("disabled", true);
-            $("#player1").addClass("enJuego");
-            $("#player2").removeClass("enJuego");
-        }else if(puntajeP2>puntajeP1){
-            $("h1").html("El ganador es el jugador 2");
-            $("#botonTirar").attr("disabled",true);
-            $("#player1").removeClass("enJuego");
-            $("#player2").addClass("enJuego");
-        }
+function ganador() {
+    if (puntajeP1 > puntajeP2) {
+        $("h1").html("El ganador es el jugador 1");
+        $("#botonTirar").attr("disabled", true);
+        $("#player1").addClass("enJuego");
+        $("#player2").removeClass("enJuego");
+    } else if (puntajeP2 > puntajeP1) {
+        $("h1").html("El ganador es el jugador 2");
+        $("#botonTirar").attr("disabled", true);
+        $("#player1").removeClass("enJuego");
+        $("#player2").addClass("enJuego");
     }
-    
+}
+
 //  RESETEAR EL JUEGO
-function resetGame(){
+function resetGame() {
     $("table tbody tr td").html();
     //$("table tbody tr:last-of-type th td").html(puntajeP2);
     //$("h1").html("");
-    $("botonIniciar").attr("disabled",false);
-    $("botonTirar").removeAttr("disabled","disabled");
-    $("botonReset").attr("disabled",true);
+    $("botonIniciar").attr("disabled", false);
+    $("botonTirar").removeAttr("disabled", "disabled");
+    $("botonReset").attr("disabled", true);
     $("#player2").removeClass("enJuego");
     $("#player1").addClass("enJuego");
     //$("#Info").html("");
     tirada = [];
     puntajeP1 = 0;
-    puntajeP2  = 0;
+    puntajeP2 = 0;
     jugador = 1;
-    for( var i=0 ; i<cantDados ; i++ ){
-        $("#dado" + (i+1) + " img").attr("src","img/0.jpg");
+    for (var i = 0; i < cantDados; i++) {
+        $("#dado" + (i + 1) + " img").attr("src", "img/0.jpg");
     }
 };
 
 // Puntajes desplegable 
-$(document).ready(function() {
+$(document).ready(function () {
     $("#tablaPuntajes").addClass("noDisp");
     $("#puntajes").click(function () {
-    $("#tablaPuntajes").toggle();
-  });
-  });
+        $("#tablaPuntajes").toggle();
+    });
+});
 
 //  PRIMER METODO
 /*
