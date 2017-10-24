@@ -159,7 +159,6 @@ function checkJugada() {
     var poker = hizoJuego(juegoPoker);
     var full = hizoJuego(juegoFull);
     var escalera = hizoJuego(juegoEscalera);
-<<<<<<< HEAD
     
     console.log("Generala: " + generala + "\n" + "Poker: " + poker + "\n" + "Full: " + full + "\n" + "Escalera: " + escalera);
     
@@ -179,8 +178,6 @@ function checkJugada() {
     {
         $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(20);
     }
-=======
->>>>>>> 297c7b0f3b4f75e236063641c37cbb638c13f713
 }
 
 function hizoJuego(juego) {
