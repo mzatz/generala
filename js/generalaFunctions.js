@@ -74,6 +74,9 @@ var juegoPoker = /1{4}[23456] | 1{1}2{4} | 1{1}3{4} | 1{1}4{4} | 1{1}5{4} | 1{1}
 var juegoGenerala = /1{5} | 2{5} | 3{5} | 4{5} | 5{5} | 6{5}/g;
 // FULL
 var juegoFull = /(1{3}{2{2}|3{2}|4{2}|5{2}|6{2}})|(1{2}(2{3}|3{3}|4{3}|5{3}|6{3}))|(2{3}(3{2}|4{2}|5{2}|6{2}))|(2{2}(3{3}|4{3}|5{3}|6{3}))|(2{3}(3{2}|4{2}|5{2}|6{2}))|(3{2}(4{3}|5{3}|6{3}))|(4{3}(5{2}|6{2}))|(4{2}(5{3}|6{3}))|5{3}6{2}|5{2}6{3}/;
+
+var juegoFull = /(1{3}(2{2}|3{2}|4{2}|5{2}|6{2}))|(1{2}(2{3}|3{3}|4{3}|5{3}|6{3}))|(2{3}(3{2}|4{2}|5{2}|6{2}))|(2{2}(3{3}|4{3}|5{3}|6{3}))|(3{3}(4{2}|5{2}|6{2}))|(3{2}(4{3}|5{3}|6{3}))|(4{3}(5{2}|6{2}))|(4{2}(5{3}|6{3}))|5{3}6{2}|5{2}6{3}/;
+
 // ESCALERA
 var juegoEscalera = "(1|2|3|4|5) | (2|3|4|5|6) | (1|3|4|5|6)";
 
@@ -131,6 +134,7 @@ function checkJugada() {
     var poker = hizoJuego(juegoPoker);
     var full = hizoJuego(juegoFull);
     var escalera = hizoJuego(juegoEscalera);
+<<<<<<< HEAD
     
     console.log("Generala: " + generala + "\n" + "Poker: " + poker + "\n" + "Full: " + full + "\n" + "Escalera: " + escalera);
     
@@ -150,6 +154,8 @@ function checkJugada() {
     {
         $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(20);
     }
+=======
+>>>>>>> 297c7b0f3b4f75e236063641c37cbb638c13f713
 }
 
 function hizoJuego(juego) {
