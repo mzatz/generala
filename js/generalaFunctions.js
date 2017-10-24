@@ -24,11 +24,13 @@ function cambiarTurno() {
         $("#player2").addClass("enJuego");
         jugador = 2;
         $("#Info").html("Turno jugador: " + jugador);
+         $("#dado" + a).removeClass("seleccionado");
     } else {
         $("#player2").removeClass("enJuego");
         $("#player1").addClass("enJuego");
         jugador = 1;
         $("#Info").html("Turno jugador: " + jugador);
+         $("#dado" + a).removeClass("seleccionado");
     }
     //Vaciar los dados
     for (var i = 0; i < cantDados; i++) {
