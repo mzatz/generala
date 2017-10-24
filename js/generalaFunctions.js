@@ -154,9 +154,9 @@ function checkJugada() {
     });
 
     var generala = hizoJuego(juegoGenerala);
-    var poker = hizoJuego(poker);
-    var full = hizoJuego(full);
-    var escalera = hizoJuego(escalera);
+    var poker = hizoJuego(juegoPoker);
+    var full = hizoJuego(juegoFull);
+    var escalera = hizoJuego(juegoEscalera);
 
 
 }
