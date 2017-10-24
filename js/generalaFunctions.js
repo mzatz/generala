@@ -19,6 +19,7 @@ function comenzar() {
 
 //  CAMBIOS DE TURNO ENTE JUGADORES
 function cambiarTurno() {
+    var a;
     if (jugador === 1) {
         $("#player1").removeClass("enJuego");
         $("#player2").addClass("enJuego");
@@ -45,6 +46,7 @@ function tirarDados() {
             var numero = (Math.floor(Math.random() * 6) + 1);
             tirada[i] = numero;
             $("#dado" + (i + 1) + " img").attr("src", "img/" + numero + ".jpg");
+            console.log("Numero: " + tirada[i] + " Dado: " + numero)
         }
     }
     cantTiros++;
