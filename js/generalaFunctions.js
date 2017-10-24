@@ -152,9 +152,13 @@ $(document).ready(function () {
 //  PRIMER METODO
 function checkJugada() {
     //ordeno
-    tirada.sort(function (a, b) {
+    
+    var tiradaOrdenada = tirada.slice();
+    tiradaOrdenada.sort(function (a, b) {
         return a - b;
     });
+    
+    console.log(tirada);
 
     var generala = hizoJuego(juegoGenerala);
     var poker = hizoJuego(juegoPoker);
