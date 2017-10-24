@@ -56,6 +56,31 @@ function tirarDados() {
     }
 };
 
+//  JUEGOS DE LOS NUMEROS DEL 1 - 6
+function numb(a){
+	var cantidad = 0;
+	for (i=0; i<tirada.length; i++){
+		if(tirada[i]==a){
+			cantidad++;
+		}
+	}
+	$("#puntaje tbody tr:nth-of-type("+a+") td:nth-of-type("+(jugador+2)+")").html(a*cantidad);
+	cambiarJugador();
+}
+
+//  SELECCION DE LOS DADOS
+/*function dados(a){
+	if($("contenedor dados img:nth-of-type("+a+")").attr("src")!="img/0.jpg"){ console.log("El dado no es 0")
+		if($("img:nth-of-type("+a+")").hasClass("seleccionado")){console.log("Si esta seleccionado")
+			$("img:nth-of-type("+a+")").css("backgroundcolor","red");
+			$("img:nth-of-type("+a+")").removeClass("seleccionado");
+		} else { console.log("No esta seleccionado")
+			$("img:nth-of-type("+a+")").css("backgroundcolor","pink");
+			$("img:nth-of-type("+a+")").addClass("seleccionado");
+		}
+	}
+};*/
+
 function dados(a) {
     if ($("#dado" + a).attr("src") != "img/0.jpg") {
         if ($("#dado" + a).hasClass("seleccionado")) {
