@@ -56,19 +56,6 @@ function tirarDados() {
     }
 };
 
-//  SELECCION DE LOS DADOS
-/*function dados(a){
-	if($("contenedor dados img:nth-of-type("+a+")").attr("src")!="img/0.jpg"){ console.log("El dado no es 0")
-		if($("img:nth-of-type("+a+")").hasClass("seleccionado")){console.log("Si esta seleccionado")
-			$("img:nth-of-type("+a+")").css("backgroundcolor","red");
-			$("img:nth-of-type("+a+")").removeClass("seleccionado");
-		} else { console.log("No esta seleccionado")
-			$("img:nth-of-type("+a+")").css("backgroundcolor","pink");
-			$("img:nth-of-type("+a+")").addClass("seleccionado");
-		}
-	}
-};*/
-
 function dados(a) {
     if ($("#dado" + a).attr("src") != "img/0.jpg") {
         if ($("#dado" + a).hasClass("seleccionado")) {
@@ -80,21 +67,6 @@ function dados(a) {
         }
     }
 };
-
-/*
-//  ANOTAR LA JUGADA
-function anotarTotales(){
-	$("table tbody tr:last-of-type td:nth-of-type("+(jugador)+")").html(puntajeP1);
-}
-      
-//  JUGADAS
-function numeros(a){
-	var repetidos = 0;
-	for(i=0; i<tirada.length; i++){
-		if(tirada[i]==a){
-			repetidos++;
-		}
-	}*/
 
 // POKER
 var juegoPoker = /1{4}[23456] | 1{1}2{4} | 1{1}3{4} | 1{1}4{4} | 1{1}5{4} | 1{1}6{4} | 2{4}[3456] | 2{1}3{4} | 2{1}4{4} | 2{1}5{4} | 2{1}6{4} | 3{4}[456] | 3{1}4{4} | 3{1}5{4} | 3{1}6{4} | 4{4}[56] | 4{1}5{4} | 4{1}6{4} | 5{4}[6] | 5{1}6{4}/g;
@@ -159,8 +131,25 @@ function checkJugada() {
     var poker = hizoJuego(juegoPoker);
     var full = hizoJuego(juegoFull);
     var escalera = hizoJuego(juegoEscalera);
-
-
+    
+    console.log("Generala: " + generala + "\n" + "Poker: " + poker + "\n" + "Full: " + full + "\n" + "Escalera: " + escalera);
+    
+    if(generala)
+    {
+        $("table tbody tr:nth-of-type(10) td:nth-of-type(" + (jugador + 1) + ")").html(50);
+    }
+    else if(poker)
+    {
+        $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(40);
+    }
+    else if(full)
+    {
+        $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(30);
+    }
+    else if(escalera)
+    {
+        $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(20);
+    }
 }
 
 function hizoJuego(juego) {
