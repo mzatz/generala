@@ -1,0 +1,15 @@
+Cosas que faltan por hacer
+
+Funcional
+
+Perfeccionar el cambio de jugador
+Validar jugadas
+Restringir que el jugador no pueda seguir sumando puntos que ya tiene.
+
+
+Estetico
+
+Al comenzar solo deberia estar el boton INICIAR
+Una vez apretado desaparece y figuran los botones "tirar dados" y "reset"
+Restringir la rotacion de la pantalla.
+Si ambos jugadores tienen la misma jugada, estas se tachan.
