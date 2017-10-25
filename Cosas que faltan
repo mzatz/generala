@@ -1,14 +1,19 @@
 Cosas que faltan por hacer
 
-Funcional
+FUNCIONAL
 
-Perfeccionar el cambio de jugador
-Validar jugadas
-Restringir que el jugador no pueda seguir sumando puntos que ya tiene.
+Perfeccionar el cambio de jugador       JONI
+Sumar los puntajes totales.             JONI
+
+Validar jugadas     Sumar 5 cuando es servido                               MATI
+Restringir que el jugador no pueda seguir sumando puntos que ya tiene.      MATI
 
 
-Estetico
 
+ESTETICO
+
+Cuando se abre el div "puntajes" se redimensiona el layout.
+Cuando cambio jugador cambian de lugar los botones.
 Al comenzar solo deberia estar el boton INICIAR
 Una vez apretado desaparece y figuran los botones "tirar dados" y "reset"
 Restringir la rotacion de la pantalla.
