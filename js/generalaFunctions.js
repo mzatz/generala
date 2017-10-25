@@ -85,14 +85,16 @@ function dados(a) {
 };
 
 // POKER
-var juegoPoker = /1{4}[23456] | 1{1}2{4} | 1{1}3{4} | 1{1}4{4} | 1{1}5{4} | 1{1}6{4} | 2{4}[3456] | 2{1}3{4} | 2{1}4{4} | 2{1}5{4} | 2{1}6{4} | 3{4}[456] | 3{1}4{4} | 3{1}5{4} | 3{1}6{4} | 4{4}[56] | 4{1}5{4} | 4{1}6{4} | 5{4}[6] | 5{1}6{4}/g;
+var juegoPoker = /1{4}[23456]|1{1}2{4}|1{1}3{4}|1{1}4{4}|1{1}5{4}|1{1}6{4}|2{4}[3456]|2{1}3{4}|2{1}4{4}|2{1}5{4}|2{1}6{4}|3{4}[456]|3{1}4{4}|3{1}5{4}|3{1}6{4}|4{4}[56]|4{1}5{4}|4{1}6{4}|5{4}[6]|5{1}6{4}/g;
+
 //  GENERALA
-var juegoGenerala = /1{5} | 2{5} | 3{5} | 4{5} | 5{5} | 6{5}/g;
+var juegoGenerala = /1{5}|2{5}|3{5}|4{5}|5{5}|6{5}/g;
+
 // FULL
-var juegoFull = /(1{3}(2{2}|3{2}|4{2}|5{2}|6{2}))|(1{2}(2{3}|3{3}|4{3}|5{3}|6{3}))|(2{3}(3{2}|4{2}|5{2}|6{2}))|(2{2}(3{3}|4{3}|5{3}|6{3}))|(3{3}(4{2}|5{2}|6{2}))|(3{2}(4{3}|5{3}|6{3}))|(4{3}(5{2}|6{2}))|(4{2}(5{3}|6{3}))|5{3}6{2}|5{2}6{3}/;
+var juegoFull = /(1{3}(2{2}|3{2}|4{2}|5{2}|6{2}))|(1{2}(2{3}|3{3}|4{3}|5{3}|6{3}))|(2{3}(3{2}|4{2}|5{2}|6{2}))|(2{2}(3{3}|4{3}|5{3}|6{3}))|(3{3}(4{2}|5{2}|6{2}))|(3{2}(4{3}|5{3}|6{3}))|(4{3}(5{2}|6{2}))|(4{2}(5{3}|6{3}))|5{3}6{2}|5{2}6{3}/g;
 
 // ESCALERA
-var juegoEscalera = "(1|2|3|4|5) | (2|3|4|5|6) | (1|3|4|5|6)";
+var juegoEscalera = /(12345)|(23456)|(13456)/g;
 
 //  ANUNCIAR EL GANADOR
 function ganador() {
@@ -140,18 +142,18 @@ $(document).ready(function () {
 //  PRIMER METODO
 function checkJugada() {
     //ordeno
-    
     var tiradaOrdenada = tirada.slice();
     tiradaOrdenada.sort(function (a, b) {
         return a - b;
     });
     
-    console.log(tirada);
-
-    var generala = hizoJuego(juegoGenerala);
-    var poker = hizoJuego(juegoPoker);
-    var full = hizoJuego(juegoFull);
-    var escalera = hizoJuego(juegoEscalera);
+    console.log("TiradaOrdenada: " + tiradaOrdenada);
+    console.log("Tirada: " + tirada);
+    
+    var generala = hizoJuego(juegoGenerala,tiradaOrdenada);
+    var poker = hizoJuego(juegoPoker,tiradaOrdenada);
+    var full = hizoJuego(juegoFull,tiradaOrdenada);
+    var escalera = hizoJuego(juegoEscalera,tiradaOrdenada);
     
     console.log("Generala: " + generala + "\n" + "Poker: " + poker + "\n" + "Full: " + full + "\n" + "Escalera: " + escalera);
     
@@ -161,20 +163,30 @@ function checkJugada() {
     }
     else if(poker)
     {
+        if(cantTiros==1){
+            $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(45);
+        }
         $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(40);
     }
     else if(full)
     {
+        if(cantTiros==1){
+            $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(35);
+        }
         $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(30);
     }
     else if(escalera)
     {
+        if(cantTiros==1){
+            $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(25);
+        }
         $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(20);
     }
 }
 
-function hizoJuego(juego) {
-    if (tirada.join("").match(juego) != null) {
+function hizoJuego(juego,tiro) {
+
+    if (tiro.join("").match(juego) != null) {
         return true;
     }
     return false;
