@@ -74,8 +74,12 @@ table thead tr th , th:last-of-type {
     font-size: 0.8em;
 }
 
-table tbody tr:last-of-type td {
+table tbody tr td {
     text-align: center;
+}
+
+table tbody tr:first-of-type {
+    text-align: left;
 }
 
 td{
