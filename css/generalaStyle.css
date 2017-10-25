@@ -10,6 +10,7 @@
 body {
 	font-family: 'Pontano Sans', sans-serif;
 	background-color: #FFDC52;
+    transition: background-color .5s;
 }
 
 h1 {
@@ -27,7 +28,7 @@ h1 {
     margin: 0 auto;
 	margin-top: 1%;
     background-color:#eb1f48;
-    position: relative;
+    position: fixed;
 }
 
 #Info {
@@ -54,8 +55,9 @@ h1 {
 }
 /* -----------------   TABLA    --------------------- */
 table {
-    margin: 0 auto;
+    margin: 2%;
     width: 95%;
+    height: 80%;
     padding: 0.5%;
     color: #000;
     border-collapse: collapse;
@@ -72,21 +74,27 @@ th,td{
 table thead tr th , th:last-of-type {
     text-transform: uppercase;
     font-size: 0.8em;
+    font-weight: bold;
 }
 
-table tbody tr td {
+table tbody tr:last-of-type td {
     text-align: center;
+    font-weight: bold;
 }
-
 td{
     padding-left: 3%;
 }
-.noDisp{
-    display: none;
+
+
+/* ---------------      ICONO AYUDA      -------------------- */
+#ayuda {
+    width: 4%;
+    float: right;
+    margin: 2%;
 }
 
-table tbody tr:first-of-type {
-    text-align: left;
+#reglasJuego{
+    display: none;
 }
 
 /* ---------------      CAMBIOS ESTANDO EN JUEGO      -------------------- */
@@ -113,7 +121,6 @@ table tbody tr:first-of-type {
 }
 
 /* ---------------      MARCADOR     -------------------- */
-
 #marcador {
     width: 90%;
     margin: 0 auto;
@@ -135,7 +142,6 @@ table tbody tr:first-of-type {
 }
 
 /* ---------------      DADOS     -------------------- */
-
 #contenedor {
     background-color: #ffdb99;
     width: 75%;
@@ -170,6 +176,42 @@ img {
     margin: 0 auto;
 }
 
-.seleccionado {
-    opacity: 0.5;
+
+/*  ---------------   TABLA PUNTAJES --------------------  */
+.sidenav, .rulesGame {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #eb1f48;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 10%;
+}
+
+.sidenav a , rulesGame a{
+    padding: 5%;
+    text-decoration: none;
+    font-size: 2em;
+    color: darkslategrey;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover , , rulesGame a:hover {
+    color: #FFF;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    margin-left: 30%;
+}
+
+.overlay {
+    overflow:hidden;
+    -webkit-filter: blur(.10em);
 }
