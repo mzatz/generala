@@ -34,7 +34,7 @@ function cambiarTurno() {
         $("#player2").addClass("enJuego");
         jugador = 2;
         $("#Info").html("Turno jugador: " + jugador);
-         $("#dado" + a).removeClass("seleccionado");
+        $("#dado" + a).removeClass("seleccionado");
     } else {
         $("#player2").removeClass("enJuego");
         $("#player1").addClass("enJuego");
@@ -47,8 +47,10 @@ function cambiarTurno() {
     for (var i = 0; i < cantDados; i++) {
         $("#dado" + (i + 1) + " img").attr("src", "img/0.jpg");
         $("#dado" + a).removeClass("seleccionado");
+        $("#dado" + (i + 1) + " img").removeClass("seleccionado");
     }
     ganador();
+    cantTiros=0;
 }
 
 //  TIRAR DADOS Y ASIGNAR LAS IMAGENES
@@ -127,30 +129,22 @@ function ganador() {
 //  RESETEAR EL JUEGO
 function resetGame() {
     $("table tbody tr td").html();
-    //$("table tbody tr:last-of-type th td").html(puntajeP2);
-    //$("h1").html("");
     $("botonIniciar").attr("disabled", false);
     $("botonTirar").removeAttr("disabled", "disabled");
     $("botonReset").attr("disabled", true);
     $("#player2").removeClass("enJuego");
     $("#player1").addClass("enJuego");
-    //$("#Info").html("");
+    $("#Info").html("");
     tirada = [];
     puntajeP1 = 0;
     puntajeP2 = 0;
     jugador = 1;
+    cantTiros = 0;
     for (var i = 0; i < cantDados; i++) {
         $("#dado" + (i + 1) + " img").attr("src", "img/0.jpg");
+        $("#dado" + (i + 1) + " img").removeClass("seleccionado");
     }
 };
-
-// Puntajes desplegable 
-$(document).ready(function () {
-    $("#tablaPuntajes").addClass("noDisp");
-    $("#puntajes").click(function () {
-        $("#tablaPuntajes").toggle();
-    });
-});
 
 //  PRIMER METODO
 function checkJugada() {
@@ -197,7 +191,7 @@ function checkJugada() {
     }}
     else if(escalera)
     {
-        if(cantTiros==1){
+        if(cantTiros>2){
             $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(25);
             mostrarPuntajes(25);
             cambiarTurno();
@@ -217,6 +211,15 @@ function hizoJuego(juego,tiro) {
     return false;
 }
 
+// MENU DE PUNTAJES DESPLEGABLE VERSION UNO
+$(document).ready(function () {
+    $("#tablaPuntajes").addClass("noDisp");
+    $("#puntajes").click(function () {
+        $("#tablaPuntajes").toggle();
+    });
+});
+
+//  MENU DESPLEGABLE NUEVO SLIDE
 function openNav() {
     document.getElementById("mySidenav").style.width = "50%";
     $("container").addClass("overlay");
