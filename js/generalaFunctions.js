@@ -6,8 +6,17 @@ var puntajeP2 = 0;
 var cantTiros = 0; //  Cantidad de veces que puede arrojar los dados
 
 //  VISUALIZACIÓN DE LOS PUNTAJES
-$("table tbody tr:last-of-type td:nth-of-type(1)").html(puntajeP1);
-$("table tbody tr:last-of-type td:nth-of-type(2)").html(puntajeP2);
+function mostrarPuntajes(puntajeJuego) {
+    $("table tbody tr:last-of-type td:nth-of-type(1)").html(puntajeP1);
+    $("table tbody tr:last-of-type td:nth-of-type(2)").html(puntajeP2);
+    if(jugador==1){
+        puntajeP1 = puntajeP1 + puntajeJuego;
+    }else{
+        puntajeP2 = puntajeP2 + puntajeJuego;
+    }
+    $("table tbody tr:last-of-type td:nth-of-type(1)").html(puntajeP1);
+    $("table tbody tr:last-of-type td:nth-of-type(2)").html(puntajeP2);
+}
 
 //  HABILITAR BOTONES
 function comenzar() {
@@ -33,10 +42,13 @@ function cambiarTurno() {
         $("#Info").html("Turno jugador: " + jugador);
          $("#dado" + a).removeClass("seleccionado");
     }
+    
     //Vaciar los dados
     for (var i = 0; i < cantDados; i++) {
         $("#dado" + (i + 1) + " img").attr("src", "img/0.jpg");
+        $("#dado" + a).removeClass("seleccionado");
     }
+    ganador();
 }
 
 //  TIRAR DADOS Y ASIGNAR LAS IMAGENES
@@ -66,8 +78,9 @@ function numb(a){
 			cantidad++;
 		}
 	}
-    console.log(a*cantidad);
+    console.log("Suma del numero seleccionado: " + a*cantidad);
 	$("table tbody tr:nth-of-type("+a+") td:nth-of-type("+(jugador+1)+")").html(a*cantidad);
+    mostrarPuntajes(a*cantidad);
 	cambiarTurno();
 }
 
@@ -99,12 +112,12 @@ var juegoEscalera = /(12345)|(23456)|(13456)/g;
 //  ANUNCIAR EL GANADOR
 function ganador() {
     if (puntajeP1 > puntajeP2) {
-        $("h1").html("El ganador es el jugador 1");
+        $("#marcador #info").html("El ganador es el jugador 1");
         $("#botonTirar").attr("disabled", true);
         $("#player1").addClass("enJuego");
         $("#player2").removeClass("enJuego");
     } else if (puntajeP2 > puntajeP1) {
-        $("h1").html("El ganador es el jugador 2");
+        $("#marcador #info").html("El ganador es el jugador 2");
         $("#botonTirar").attr("disabled", true);
         $("#player1").removeClass("enJuego");
         $("#player2").addClass("enJuego");
@@ -157,36 +170,48 @@ function checkJugada() {
     
     console.log("Generala: " + generala + "\n" + "Poker: " + poker + "\n" + "Full: " + full + "\n" + "Escalera: " + escalera);
     
-    if(generala)
-    {
+    if(generala) {
         $("table tbody tr:nth-of-type(10) td:nth-of-type(" + (jugador + 1) + ")").html(50);
-    }
-    else if(poker)
-    {
+        mostrarPuntajes(50);
+        cambiarTurno();
+    } else if(poker) {
         if(cantTiros==1){
             $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(45);
-        }
+            mostrarPuntajes(45);
+            cambiarTurno();
+        }else{
         $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(40);
-    }
+        mostrarPuntajes(40);
+        cambiarTurno();
+    }}
     else if(full)
     {
         if(cantTiros==1){
             $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(35);
-        }
+            mostrarPuntajes(35);
+            cambiarTurno();
+        }else{
         $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(30);
-    }
+        mostrarPuntajes(30);
+        cambiarTurno();
+    }}
     else if(escalera)
     {
         if(cantTiros==1){
             $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(25);
-        }
+            mostrarPuntajes(25);
+            cambiarTurno();
+        }else{
         $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(20);
-    }
+        mostrarPuntajes(20);
+        cambiarTurno();
+    }}
 }
 
 function hizoJuego(juego,tiro) {
 
     if (tiro.join("").match(juego) != null) {
+        return true;
         return true;
     }
     return false;
