@@ -7,8 +7,6 @@ var cantTiros = 0; //  Cantidad de veces que puede arrojar los dados
 
 //  VISUALIZACIÓN DE LOS PUNTAJES
 function mostrarPuntajes(puntajeJuego) {
-    $("table tbody tr:last-of-type td:nth-of-type(1)").html(puntajeP1);
-    $("table tbody tr:last-of-type td:nth-of-type(2)").html(puntajeP2);
     if(jugador==1){
         puntajeP1 = puntajeP1 + puntajeJuego;
     }else{
@@ -16,6 +14,8 @@ function mostrarPuntajes(puntajeJuego) {
     }
     $("table tbody tr:last-of-type td:nth-of-type(1)").html(puntajeP1);
     $("table tbody tr:last-of-type td:nth-of-type(2)").html(puntajeP2);
+    $("#botonTirar").attr("disabled", false);
+
 }
 
 //  HABILITAR BOTONES
@@ -49,8 +49,9 @@ function cambiarTurno() {
         $("#dado" + a).removeClass("seleccionado");
         $("#dado" + (i + 1) + " img").removeClass("seleccionado");
     }
-    ganador();
+    //ganador();
     cantTiros=0;
+    $("#dado" + (i + 1) + " img").removeClass("seleccionado");
 }
 
 //  TIRAR DADOS Y ASIGNAR LAS IMAGENES
