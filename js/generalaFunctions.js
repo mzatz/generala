@@ -14,7 +14,7 @@ function mostrarPuntajes(puntajeJuego) {
     }
     $("table tbody tr:last-of-type td:nth-of-type(1)").html(puntajeP1);
     $("table tbody tr:last-of-type td:nth-of-type(2)").html(puntajeP2);
-    $("#botonTirar").attr("disabled", false);
+    
 
 }
 
@@ -71,6 +71,7 @@ function tirarDados() {
     if (cantTiros >= 3) {
         $("#botonTirar").attr("disabled", true);
     }
+    $("#Info").html("Turno jugador: " + jugador);
 };
 
 //  JUEGOS DE LOS NUMEROS DEL 1 - 6
@@ -169,19 +170,21 @@ function checkJugada() {
         $("table tbody tr:nth-of-type(10) td:nth-of-type(" + (jugador + 1) + ")").html(50);
         mostrarPuntajes(50);
         cambiarTurno();
-    } else if(poker) {
-        if(cantTiros==1){
+    }
+    else if(poker) {
+        if(cantTiros===1){
             $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(45);
             mostrarPuntajes(45);
             cambiarTurno();
-        }else{
+        }
+        else{
         $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(40);
         mostrarPuntajes(40);
         cambiarTurno();
     }}
     else if(full)
     {
-        if(cantTiros==1){
+        if(cantTiros===1){
             $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(35);
             mostrarPuntajes(35);
             cambiarTurno();
@@ -192,7 +195,7 @@ function checkJugada() {
     }}
     else if(escalera)
     {
-        if(cantTiros>2){
+        if(cantTiros===1){
             $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(25);
             mostrarPuntajes(25);
             cambiarTurno();
