@@ -14,8 +14,6 @@ function sumarPuntajes(puntajeJuego) {
     }
     $("table tbody tr:last-of-type td:nth-of-type(1)").html(puntajeP1);
     $("table tbody tr:last-of-type td:nth-of-type(2)").html(puntajeP2);
-
-
 }
 
 //  HABILITAR BOTONES
@@ -25,11 +23,7 @@ function comenzar() {
     puntajeP2 = 0;
     jugador = 1;
     cantTiros = 0;
-    for (var i = 0; i < cantDados; i++) {
-        $("#dado" + (i + 1) + " img").attr("src", "img/0.jpg");
-        $("#dado" + (i + 1) + " img").removeClass("seleccionado");
-    }
-
+    deseleccionarDados();
     $("#botonReset").attr("disabled", false);
     $("#player2").removeClass("enJuego");
     $("#player1").addClass("enJuego");
@@ -41,6 +35,7 @@ function comenzar() {
 function cambiarTurno() {
     cantTiros = 0;
     deseleccionarDados();
+    $("#botonTirar").prop("disabled",false);
     if (jugador === 1) {
         $("#player1").removeClass("enJuego");
         $("#player2").addClass("enJuego");
@@ -77,8 +72,8 @@ function tirarDados() {
     checkJugada();
     // Sumar los cantTiros
     console.log("Cantidad de tiros: " + cantTiros);
-    if (cantTiros >= 3) {
-        cambiarTurno();
+    if (cantTiros == 3) {
+        $("#botonTirar").prop("disabled",true);
     }
 };
 
@@ -98,12 +93,10 @@ function numb(a) {
 
 //  SELECCION DE LOS DADOS
 function dados(a) {
-    if ($("#dado" + a).attr("src") != "img/0.jpg") {
+    if ($("#dado" + a + " img").attr("src") != "img/0.jpg") {
         if ($("#dado" + a).hasClass("seleccionado")) {
-            $("#dado" + a).css("backgroundcolor", "red");
             $("#dado" + a).removeClass("seleccionado");
         } else {
-            $("#dado" + a).css("backgroundcolor", "pink");
             $("#dado" + a).addClass("seleccionado");
         }
     }
@@ -162,43 +155,43 @@ function checkJugada() {
 
     console.log("Generala: " + generala + "\n" + "Poker: " + poker + "\n" + "Full: " + full + "\n" + "Escalera: " + escalera);
 
-    if (generala) {
-        showMessage("Generala!!");
-        $("table tbody tr:nth-of-type(10) td:nth-of-type(" + (jugador + 1) + ")").html(50);
-        sumarPuntajes(50);
-    } else if (poker) {
-        showMessage("Poker!!");
-        if (cantTiros === 1) {
-            $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(45);
-            sumarPuntajes(45);
-        } else {
-            $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(40);
-            sumarPuntajes(40);
-        }
-    } else if (full) {
-        showMessage("Full!!");
-        if (cantTiros === 1) {
-            $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(35);
-            sumarPuntajes(35);
-        } else {
-            $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(30);
-            sumarPuntajes(30);
-        }
-    } else if (escalera) {
-        showMessage("Escalera!!");
-        if (cantTiros === 1) {
-            $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(25);
-            sumarPuntajes(25);
-        } else {
-            $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(20);
-            sumarPuntajes(20);
-        }
+    if (generala) 
+    {
+       $("table tbody tr:nth-of-type(10) td:first-of-type").html("<a href='javascript:anotarJugada(10,50,75)'>Generala</a>");
+    } 
+                                                 else if (poker) 
+       {
+        $("table tbody tr:nth-of-type(9) td:first-of-type").html("<a href='javascript:anotarJugada(9,40,45)'>Poker</a>");
+    } 
+                                                  else if (full) {
+        $("table tbody tr:nth-of-type(8) td:first-of-type").html("<a href='javascript:anotarJugada(8,30,35)'>Full</a>");
+    } 
+                                                  else if (escalera) {
+        $("table tbody tr:nth-of-type(7) td:first-of-type").html("<a href='javascript:anotarJugada(7,20,25)'>Escalera</a>");
     }
 }
 
 function showMessage(message)
 {
-    $( "div.message" ).html(message).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+    $("div.message").html(message).fadeIn(300).delay(1500).fadeOut(400);
+}
+        
+function anotarJugada(fila,puntaje,puntajeServido)
+{
+    if($("table tbody tr:nth-of-type(" + fila + ") td:nth-of-type(" + (jugador + 1) + ")").html() == ""){
+        showMessage($("table tbody tr:nth-of-type(" + fila + ") td:first-of-type").html());
+        if (cantTiros === 1) {
+            $("table tbody tr:nth-of-type(" + fila + ") td:nth-of-type(" + (jugador + 1) + ")").html(puntajeServido);
+            sumarPuntajes(puntajeServido);
+        } else {
+            $("table tbody tr:nth-of-type(" + fila + ") td:nth-of-type(" + (jugador + 1) + ")").html(puntaje);
+            sumarPuntajes(puntaje);
+        }
+    }else
+    {
+        showMessage("Jugada no permitida");
+    }    
+    cambiarTurno();
 }
 
 

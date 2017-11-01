@@ -2,12 +2,13 @@ Cosas que faltan por hacer
 
 FUNCIONAL
 
-Perfeccionar el cambio de jugador       JONI
-Sumar los puntajes totales.             JONI
+Perfeccionar el cambio de jugador  Casi Ok     JONI
+Sumar los puntajes totales. OK            JONI
 
 Validar jugadas     Sumar 5 cuando es servido                               MATI
 Restringir que el jugador no pueda seguir sumando puntos que ya tiene.      MATI
 
+Falta determinar si el jugador ya hizo todas sus jugadas para llamar ahi a la funcion ganador();
 
 
 ESTETICO
