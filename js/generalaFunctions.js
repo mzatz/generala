@@ -6,52 +6,61 @@ var puntajeP2 = 0;
 var cantTiros = 0; //  Cantidad de veces que puede arrojar los dados
 
 //  VISUALIZACIÓN DE LOS PUNTAJES
-function mostrarPuntajes(puntajeJuego) {
-    if(jugador==1){
+function sumarPuntajes(puntajeJuego) {
+    if (jugador == 1) {
         puntajeP1 = puntajeP1 + puntajeJuego;
-    }else{
+    } else {
         puntajeP2 = puntajeP2 + puntajeJuego;
     }
     $("table tbody tr:last-of-type td:nth-of-type(1)").html(puntajeP1);
     $("table tbody tr:last-of-type td:nth-of-type(2)").html(puntajeP2);
-    
+
 
 }
 
 //  HABILITAR BOTONES
 function comenzar() {
-    $("#botonTirar").attr("disabled", false);
+    tirada = [];
+    puntajeP1 = 0;
+    puntajeP2 = 0;
+    jugador = 1;
+    cantTiros = 0;
+    for (var i = 0; i < cantDados; i++) {
+        $("#dado" + (i + 1) + " img").attr("src", "img/0.jpg");
+        $("#dado" + (i + 1) + " img").removeClass("seleccionado");
+    }
+
     $("#botonReset").attr("disabled", false);
+    $("#player2").removeClass("enJuego");
     $("#player1").addClass("enJuego");
     $("#Info").html("Comienza tirando el jugador " + jugador);
+    $("table tbody tr td").html();
 }
 
 //  CAMBIOS DE TURNO ENTE JUGADORES
 function cambiarTurno() {
-    var a;
+    cantTiros = 0;
+    deseleccionarDados();
     if (jugador === 1) {
         $("#player1").removeClass("enJuego");
         $("#player2").addClass("enJuego");
         jugador = 2;
         $("#Info").html("Turno jugador: " + jugador);
-        $("#dado" + a).removeClass("seleccionado");
+
     } else {
         $("#player2").removeClass("enJuego");
         $("#player1").addClass("enJuego");
         jugador = 1;
         $("#Info").html("Turno jugador: " + jugador);
-         $("#dado" + a).removeClass("seleccionado");
     }
-    
-    //Vaciar los dados
+
+}
+
+function deseleccionarDados() {
     for (var i = 0; i < cantDados; i++) {
         $("#dado" + (i + 1) + " img").attr("src", "img/0.jpg");
-        $("#dado" + a).removeClass("seleccionado");
-        $("#dado" + (i + 1) + " img").removeClass("seleccionado");
+        $("#dado" + (i + 1)).removeClass("seleccionado");
     }
-    //ganador();
-    cantTiros=0;
-    $("#dado" + (i + 1) + " img").removeClass("seleccionado");
 }
 
 //  TIRAR DADOS Y ASIGNAR LAS IMAGENES
@@ -60,7 +69,7 @@ function tirarDados() {
         if (!$("#dado" + (i + 1)).hasClass("seleccionado")) {
             var numero = (Math.floor(Math.random() * 6) + 1);
             tirada[i] = numero;
-            $("#dado" + (i + 1) + " img").attr("src", "img/" + numero + ".jpg");
+            $("#dado" + (i + 1) + " img").attr("src", "img/" + numero + ".jpg").html(numero);
             console.log("Numero: " + tirada[i] + " Dado: " + numero)
         }
     }
@@ -69,23 +78,22 @@ function tirarDados() {
     // Sumar los cantTiros
     console.log("Cantidad de tiros: " + cantTiros);
     if (cantTiros >= 3) {
-        $("#botonTirar").attr("disabled", true);
+        cambiarTurno();
     }
-    $("#Info").html("Turno jugador: " + jugador);
 };
 
 //  JUEGOS DE LOS NUMEROS DEL 1 - 6
-function numb(a){
-	var cantidad = 0;
-	for (i=0; i<tirada.length; i++){
-		if(tirada[i]==a){
-			cantidad++;
-		}
-	}
-    console.log("Suma del numero seleccionado: " + a*cantidad);
-	$("table tbody tr:nth-of-type("+a+") td:nth-of-type("+(jugador+1)+")").html(a*cantidad);
-    mostrarPuntajes(a*cantidad);
-	cambiarTurno();
+function numb(a) {
+    var cantidad = 0;
+    for (i = 0; i < tirada.length; i++) {
+        if (tirada[i] == a) {
+            cantidad++;
+        }
+    }
+    console.log("Suma del numero seleccionado: " + a * cantidad);
+    $("table tbody tr:nth-of-type(" + a + ") td:nth-of-type(" + (jugador + 1) + ")").html(a * cantidad);
+    sumarPuntajes(a * cantidad);
+    cambiarTurno();
 }
 
 //  SELECCION DE LOS DADOS
@@ -130,23 +138,11 @@ function ganador() {
 
 //  RESETEAR EL JUEGO
 function resetGame() {
-    $("table tbody tr td").html();
-    $("botonIniciar").attr("disabled", false);
-    $("botonTirar").removeAttr("disabled", "disabled");
-    $("botonReset").attr("disabled", true);
-    $("#player2").removeClass("enJuego");
-    $("#player1").addClass("enJuego");
-    $("#Info").html("");
-    tirada = [];
-    puntajeP1 = 0;
-    puntajeP2 = 0;
-    jugador = 1;
-    cantTiros = 0;
-    for (var i = 0; i < cantDados; i++) {
-        $("#dado" + (i + 1) + " img").attr("src", "img/0.jpg");
-        $("#dado" + (i + 1) + " img").removeClass("seleccionado");
+    if(confirm("¿Desea reiniciar el juego?"))
+    {
+        comenzar();
     }
-};
+}
 
 //  PRIMER METODO
 function checkJugada() {
@@ -155,58 +151,58 @@ function checkJugada() {
     tiradaOrdenada.sort(function (a, b) {
         return a - b;
     });
-    
+
     console.log("TiradaOrdenada: " + tiradaOrdenada);
     console.log("Tirada: " + tirada);
-    
-    var generala = hizoJuego(juegoGenerala,tiradaOrdenada);
-    var poker = hizoJuego(juegoPoker,tiradaOrdenada);
-    var full = hizoJuego(juegoFull,tiradaOrdenada);
-    var escalera = hizoJuego(juegoEscalera,tiradaOrdenada);
-    
+
+    var generala = hizoJuego(juegoGenerala, tiradaOrdenada);
+    var poker = hizoJuego(juegoPoker, tiradaOrdenada);
+    var full = hizoJuego(juegoFull, tiradaOrdenada);
+    var escalera = hizoJuego(juegoEscalera, tiradaOrdenada);
+
     console.log("Generala: " + generala + "\n" + "Poker: " + poker + "\n" + "Full: " + full + "\n" + "Escalera: " + escalera);
-    
-    if(generala) {
+
+    if (generala) {
+        showMessage("Generala!!");
         $("table tbody tr:nth-of-type(10) td:nth-of-type(" + (jugador + 1) + ")").html(50);
-        mostrarPuntajes(50);
-        cambiarTurno();
-    }
-    else if(poker) {
-        if(cantTiros===1){
+        sumarPuntajes(50);
+    } else if (poker) {
+        showMessage("Poker!!");
+        if (cantTiros === 1) {
             $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(45);
-            mostrarPuntajes(45);
-            cambiarTurno();
+            sumarPuntajes(45);
+        } else {
+            $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(40);
+            sumarPuntajes(40);
         }
-        else{
-        $("table tbody tr:nth-of-type(9) td:nth-of-type(" + (jugador + 1) + ")").html(40);
-        mostrarPuntajes(40);
-        cambiarTurno();
-    }}
-    else if(full)
-    {
-        if(cantTiros===1){
+    } else if (full) {
+        showMessage("Full!!");
+        if (cantTiros === 1) {
             $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(35);
-            mostrarPuntajes(35);
-            cambiarTurno();
-        }else{
-        $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(30);
-        mostrarPuntajes(30);
-        cambiarTurno();
-    }}
-    else if(escalera)
-    {
-        if(cantTiros===1){
+            sumarPuntajes(35);
+        } else {
+            $("table tbody tr:nth-of-type(8) td:nth-of-type(" + (jugador + 1) + ")").html(30);
+            sumarPuntajes(30);
+        }
+    } else if (escalera) {
+        showMessage("Escalera!!");
+        if (cantTiros === 1) {
             $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(25);
-            mostrarPuntajes(25);
-            cambiarTurno();
-        }else{
-        $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(20);
-        mostrarPuntajes(20);
-        cambiarTurno();
-    }}
+            sumarPuntajes(25);
+        } else {
+            $("table tbody tr:nth-of-type(7) td:nth-of-type(" + (jugador + 1) + ")").html(20);
+            sumarPuntajes(20);
+        }
+    }
 }
 
-function hizoJuego(juego,tiro) {
+function showMessage(message)
+{
+    $( "div.message" ).html(message).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+}
+
+
+function hizoJuego(juego, tiro) {
 
     if (tiro.join("").match(juego) != null) {
         return true;
@@ -231,6 +227,6 @@ function openNav() {
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
+    document.getElementById("main").style.marginLeft = "0";
     $("#container").removeClass("overlay");
 }
